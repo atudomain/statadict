@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 
 import unittest
+import os
 from statadict import parse_stata_dict
 
 
 class Test(unittest.TestCase):
+    RESOURCES_DIR = os.path.dirname(os.path.realpath("__file__")) + "/resources/"
+
     def setUp(self) -> None:
-        self.stata_dict = parse_stata_dict(file='resources/2017_2019_FemPregSetup.dct')
+        self.stata_dict = parse_stata_dict(file=f"{self.RESOURCES_DIR}2017_2019_FemPregSetup.dct")
 
     def test_column_numbers(self) -> None:
         self.assertEqual(248, self.stata_dict.column_numbers[170])
