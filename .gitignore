@@ -1,6 +1,6 @@
 .idea*
 *.pyc
-docs/build
+docs/build*
 dist/*
 build/*
 *.egg-info
