@@ -19,29 +19,49 @@ class StataDict:
         self._names = names
         self._formats = formats
         self._comments = comments
+        self._widths = None
+        self._colspecs = None
 
     @property
     def column_numbers(self) -> List[int]:
         return self._column_numbers
 
     @property
-    def types(self) -> list:
+    def types(self) -> List[str]:
         return self._types
 
     @property
-    def names(self) -> list:
+    def names(self) -> List[str]:
         return self._names
 
     @property
-    def formats(self) -> list:
+    def formats(self) -> List[str]:
         return self._formats
 
     @property
-    def comments(self) -> list:
+    def comments(self) -> List[str]:
         return self._comments
 
-    def get_colspecs(self) -> List[tuple]:
-        raise NotImplementedError
+    @property
+    def widths(self) -> List[int]:
+        if not self._widths:
+            widths = deque()
+            for i in range(len(self._formats)):
+                widths.append(int(re.findall(r"\d+", self._formats[i])[0]))
+            self._widths = list(widths)
+        return self._widths
+
+    @property
+    def colspecs(self) -> List[tuple]:
+        if not self._colspecs:
+            colspecs = deque()
+            for i in range(len(self._column_numbers)):
+                colspecs.append((
+                    self._column_numbers[i] - 1,
+                    self._column_numbers[i] + self.widths[i] - 1
+                ))
+            self._colspecs = list(colspecs)
+        return self._colspecs
 
 
 class StataDictParser:

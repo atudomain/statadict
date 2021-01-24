@@ -26,8 +26,11 @@ class Test(unittest.TestCase):
     def test_comments(self) -> None:
         self.assertEqual("Calendar year when interview occurred", self.stata_dict.comments[170])
 
-    def test_get_colspecs(self) -> None:
-        pass
+    def test_widths(self) -> None:
+        self.assertEqual(4, self.stata_dict.widths[170])
+
+    def test_colspecs(self) -> None:
+        self.assertEqual((247, 251), self.stata_dict.colspecs[170])
 
 
 if __name__ == '__main__':
