@@ -6,6 +6,13 @@ import re
 
 
 class StataDict:
+    """
+    Class representing Stata dictionary file.
+
+    Consists of several attributes describing columns in a fixed width field csv file.
+
+    'names', 'colspecs' and 'widths' attributes can be used with 'pandas.read_fwf()'.
+    """
     def __init__(
             self,
             column_numbers: List[int],
@@ -24,26 +31,54 @@ class StataDict:
 
     @property
     def column_numbers(self) -> List[int]:
+        """
+        :return: Number for each column where that column data should start in fwf file (1-indexed)
+        :rtype: List[int]
+        """
         return self._column_numbers
 
     @property
     def types(self) -> List[str]:
+        """
+        :return: Data type for each column
+        :rtype: List[str]
+        """
         return self._types
 
     @property
     def names(self) -> List[str]:
+        """
+        This attribute can be used with pandas.read_fwf() as names argument.
+
+        :return: Name for each column
+        :rtype: List[str]
+        """
         return self._names
 
     @property
     def formats(self) -> List[str]:
+        """
+        :return: Parsing format for each column
+        :rtype: List[str]
+        """
         return self._formats
 
     @property
     def comments(self) -> List[str]:
+        """
+        :return: Optional comment for each column
+        :rtype: List[str]
+        """
         return self._comments
 
     @property
     def widths(self) -> List[int]:
+        """
+        This attribute can be used with pandas.read_fwf() as widths argument.
+
+        :return: Width for each column
+        :rtype: List[int]
+        """
         if not self._widths:
             widths = deque()
             for i in range(len(self._formats)):
@@ -53,6 +88,12 @@ class StataDict:
 
     @property
     def colspecs(self) -> List[tuple]:
+        """
+        This attribute can be used with pandas.read_fwf() as colspecs argument.
+
+        :return: Tuple with start and end of data for each column
+        :rtype: List[tuple]
+        """
         if not self._colspecs:
             colspecs = deque()
             for i in range(len(self._column_numbers)):
@@ -96,5 +137,15 @@ class StataDictParser:
 
 
 def parse_stata_dict(file: str) -> StataDict:
+    """
+    Parses Stata dictionary file and returns object containing column data as attributes.
+
+    'names', 'colspecs' and 'widths' attributes can be used with 'pandas.read_fwf()'.
+
+    :param file: Stata dictionary file (usually .dct extension)
+    :type: str
+    :return: Object with column data as attributes
+    :rtype: statadict.base.StataDict
+    """
     stata_dict_parser = StataDictParser()
     return stata_dict_parser.parse(file)

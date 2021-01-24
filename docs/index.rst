@@ -1,3 +1,5 @@
+.. statadict documentation master file
+
 statadict's API documentation
 ========================================
 Link: https://github.com/atudomain/statadict
