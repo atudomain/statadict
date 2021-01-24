@@ -12,6 +12,7 @@ python3 -m pip install statadict --user
 ```
 Or directly from repository:
 ```
+make all
 python3 -m pip install . --user 
 ```
 
