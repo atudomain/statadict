@@ -1,0 +1,1 @@
+.. autofunction:: statadict.parse_stata_dict
