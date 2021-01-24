@@ -66,7 +66,7 @@ class StataDict:
 
 class StataDictParser:
     _COLUMN_PATTERN = r'^\s+_column'
-    _LINE_PATTERN = r'^\s+_column\((\d+)\)\s+(\S+)\s+(\S+)\s+(\S+)\s+(".*")?'
+    _LINE_PATTERN = r'^\s+_column\((\d+)\)\s+(\S+)\s+(\S+)\s+(\S+)\s*(".*")?'
 
     def parse(self, file) -> StataDict:
         column_numbers = deque()
