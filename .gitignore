@@ -1,7 +1,11 @@
 .idea*
 *.pyc
 docs/build*
-dist/*
-build/*
+dist*
+build*
 *.egg-info
 *.eggs
+.venv*
+.pytest*
+__pycache__*
+.vscode*
