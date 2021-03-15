@@ -1,0 +1,47 @@
+image: python:latest
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
+      when: never
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - .venv/
+
+before_script:
+  - python -V
+  - pip install virtualenv
+  - virtualenv .venv
+  - source .venv/bin/activate
+
+stages:
+  - test
+  - dist
+  - docs
+
+test:
+  stage: test
+  script:
+    - make test
+
+dist:
+  stage: dist
+  script:
+    - make dist
+  artifacts:
+    paths:
+      - dist/*.whl
+
+docs:
+  stage: docs
+  script:
+      - make docs
+  artifacts:
+    paths:
+      - docs/build/html
