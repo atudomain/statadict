@@ -1,19 +1,18 @@
-all: clean test package
-.PHONY: clean test package install dist docs release-major release-minor release-patch upload
-
 clean:
 	@find . -name "*.pyc" -delete
 	@rm -rf dist docs/build build statadict.egg-info
 
 test:
-	cd statadict/tests && python3 -m unittest discover -t ../..
+	python3 setup.py test
 
 install:
 	python3 -m pip install .
 
+.PHONY : dist
 dist:
 	python3 setup.py sdist bdist_wheel
 
+.PHONY : docs
 docs:
 	python3 setup.py build_sphinx
 
