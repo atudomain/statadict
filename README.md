@@ -1,4 +1,6 @@
 # statadict
+[![pipeline](https://gitlab.com/atudomain/statadict/badges/main/pipeline.svg)](https://gitlab.com/atudomain/statadict/-/tree/main)
+[![Documentation Status](https://readthedocs.org/projects/statadict/badge/?version=main)](https://statadict.readthedocs.io/en/main/?badge=main)
 
 Small package that allows reading Stata dictionary files (usually .dct extension).
 
